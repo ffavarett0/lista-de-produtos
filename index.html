@@ -168,10 +168,264 @@
 </div>
 
 <script>
-  // ---- Dados dos itens (teste inicial com 6 itens) ----
-  // Para adicionar itens: inclua { codigo, descricao } aqui e a foto
-  // correspondente em img/<codigo>.png (ou .jpg)
+  // ---- Dados dos itens (fonte: Relação de itens.xlsx) ----
+  // Para adicionar/editar itens: inclua { codigo, descricao } aqui e a
+  // foto correspondente em img/<codigo>.png (ou .jpg/.jpeg/.webp)
+
   const ITEMS = [
+    { codigo: 27486, descricao: "ARCO P/ ROADMAN" },
+    { codigo: 18872, descricao: "BATERIA 3V" },
+    { codigo: 13880, descricao: "BATERIA 9V" },
+    { codigo: 27431, descricao: "BATERIA DE LÍTIO 18650 3.7V 2000 MAH" },
+    { codigo: 24249, descricao: "BATTERY COVER (TIPO GAVETA) P/ VIOLOES - GN-3T" },
+    { codigo: 27425, descricao: "BATTERY COVER GS-3T" },
+    { codigo: 26468, descricao: "BRAÇO GUITARRA MASTERWOOD" },
+    { codigo: 24500, descricao: "BRAÇO MONTADO STAGE STN" },
+    { codigo: 16898, descricao: "CA82L" },
+    { codigo: 27622, descricao: "CABO USB PARA RECARGA DE BATERIA ROADMAN" },
+    { codigo: 27643, descricao: "CAPTADOR CERÂMICO BRAÇO GP-100/GP-102" },
+    { codigo: 27642, descricao: "CAPTADOR CERÂMICO PONTE GP-100/GP-102" },
+    { codigo: 27617, descricao: "CAPTADOR HUMBUCKER CERAMICO BRAÇO GAE09 PLUS" },
+    { codigo: 27618, descricao: "CAPTADOR HUMBUCKER CERAMICO PONTE GAE09 PLUS" },
+    { codigo: 27636, descricao: "CAPTADOR HUMBUCKER PONTE GUITARRA G-101 NEOFX" },
+    { codigo: 27638, descricao: "CAPTADOR SINGLE COIL BRAÇO GUITARRA G-101 NEOFX" },
+    { codigo: 27637, descricao: "CAPTADOR SINGLE COIL MEIO GUITARRA G-101 NEOFX" },
+    { codigo: 23951, descricao: "CAPTADOR TRANSDUCER M-06 BLACK (KL) (BANDOLIM)" },
+    { codigo: 27623, descricao: "CARREGADOR DE BATERIA ROADMAN COM ENTRADA USB" },
+    { codigo: 23724, descricao: "CAVALETE BS1" },
+    { codigo: 25955, descricao: "CAVALETE DG1 E DG1F - (BRILHANTE)" },
+    { codigo: 27444, descricao: "CAVALETE GDC-1 / GF-1D" },
+    { codigo: 25651, descricao: "CAVALETE NC1 E NC3" },
+    { codigo: 25754, descricao: "CAVALETE NTR1 EQ/NLS/NFL/NCP1 NS/NCP2 NS/M4" },
+    { codigo: 27621, descricao: "CAVALETE ROADMAN (AÇO/NYLON)" },
+    { codigo: 23653, descricao: "CAVALETE VS1H" },
+    { codigo: 23681, descricao: "CAVALETE VS4H" },
+    { codigo: 27611, descricao: "CHAPA DE BRAÇO COM LOGO/BASE PLÁSTICA GAE09 PLUS" },
+    { codigo: 27619, descricao: "CHAVE SELETORA GAE09" },
+    { codigo: 27604, descricao: "CIRCUITO GAE09 COM CHAVE SELETORA (CROMADAS)" },
+    { codigo: 27605, descricao: "CIRCUITO GAE09 E GAE06 SEM CHAVE SELETORA" },
+    { codigo: 27641, descricao: "CIRCUITO GP-100/GP-102" },
+    { codigo: 24234, descricao: "CORDAL DOURADO PARA BANDOLIM (T-49 GOLD)" },
+    { codigo: 27630, descricao: "CORDAL TUNE-O-MATIC LES PAUL GAE09" },
+    { codigo: 23342, descricao: "EQUALIZADOR EP-1 ANTIGO" },
+    { codigo: 27306, descricao: "EQUALIZADOR EP-1 NOVO" },
+    { codigo: 26633, descricao: "EQUALIZADOR FISHMAN CLÁSICA II" },
+    { codigo: 26071, descricao: "EQUALIZADOR FISHMAN PRESYS II" },
+    { codigo: 25704, descricao: "EQUALIZADOR G-01" },
+    { codigo: 25705, descricao: "EQUALIZADOR G-02" },
+    { codigo: 27496, descricao: "EQUALIZADOR GN-2T (CS-34)" },
+    { codigo: 24484, descricao: "EQUALIZADOR GN-3T" },
+    { codigo: 24026, descricao: "EQUALIZADOR GS-3T" },
+    { codigo: 23340, descricao: "EQUALIZADOR GV-3T (VS-14)" },
+    { codigo: 24361, descricao: "EQUALIZADOR MG-30" },
+    { codigo: 23581, descricao: "EQUALIZADOR MT-2" },
+    { codigo: 22336, descricao: "EQUALIZADOR MT-3" },
+    { codigo: 24363, descricao: "EQUALIZADOR UK-T3 (STAGE)" },
+    { codigo: 27614, descricao: "ESCUDO GAE09 PLUS" },
+    { codigo: 25779, descricao: "ESCUDO PARA BAIXO" },
+    { codigo: 25767, descricao: "ESCUDO PARA GUITARRA S/ PEÇAS" },
+    { codigo: 4899, descricao: "ESCUDO PRETO P/VIOLAO GOTA" },
+    { codigo: 27632, descricao: "ESCUDO TRANSPARENTE GUITARRA G-101 NEOFX" },
+    { codigo: 5972, descricao: "GEAVVA" },
+    { codigo: 14063, descricao: "GEAVVAP" },
+    { codigo: 14069, descricao: "GEEBALF" },
+    { codigo: 14071, descricao: "GEEBALF5" },
+    { codigo: 14070, descricao: "GEEBASF" },
+    { codigo: 5966, descricao: "GEEBRL" },
+    { codigo: 14076, descricao: "GEEBRLX6" },
+    { codigo: 5949, descricao: "GEEFLE" },
+    { codigo: 25614, descricao: "GEEFLE PN" },
+    { codigo: 12749, descricao: "GEEFLEF" },
+    { codigo: 5950, descricao: "GEEFLK" },
+    { codigo: 25615, descricao: "GEEFLK PN" },
+    { codigo: 12750, descricao: "GEEFLKF" },
+    { codigo: 5951, descricao: "GEEFLKS" },
+    { codigo: 25922, descricao: "GEEGST.09 PN" },
+    { codigo: 5960, descricao: "GEEGST.10" },
+    { codigo: 25597, descricao: "GEEGST.10 PN" },
+    { codigo: 25605, descricao: "GEEGST.11 PN" },
+    { codigo: 5962, descricao: "GEEGST.12" },
+    { codigo: 25608, descricao: "GEEGST.12 PN" },
+    { codigo: 5957, descricao: "GEEGST.9" },
+    { codigo: 5948, descricao: "GEEWAK" },
+    { codigo: 5921, descricao: "GENW" },
+    { codigo: 5922, descricao: "GENWB" },
+    { codigo: 5930, descricao: "GENWBG" },
+    { codigo: 5932, descricao: "GENWG" },
+    { codigo: 5936, descricao: "GENWPA" },
+    { codigo: 5934, descricao: "GENWPL" },
+    { codigo: 5935, descricao: "GENWPM" },
+    { codigo: 5933, descricao: "GENWS" },
+    { codigo: 14061, descricao: "GENWTA" },
+    { codigo: 25619, descricao: "GENWTA PN" },
+    { codigo: 14060, descricao: "GENWTM" },
+    { codigo: 5937, descricao: "GENWXPA" },
+    { codigo: 25618, descricao: "GENWXPA PN" },
+    { codigo: 14062, descricao: "GENWXTA" },
+    { codigo: 5919, descricao: "GESCB" },
+    { codigo: 5944, descricao: "GESCL" },
+    { codigo: 5927, descricao: "GESCLA" },
+    { codigo: 5925, descricao: "GESPW" },
+    { codigo: 20911, descricao: "GESVAL" },
+    { codigo: 5917, descricao: "GESVBM" },
+    { codigo: 5938, descricao: "GESVL" },
+    { codigo: 5940, descricao: "GESVM" },
+    { codigo: 5939, descricao: "GESVNL" },
+    { codigo: 25923, descricao: "GESVNL PN" },
+    { codigo: 5941, descricao: "GESVNM" },
+    { codigo: 25924, descricao: "GESVNM PN" },
+    { codigo: 5926, descricao: "GESWA12" },
+    { codigo: 5923, descricao: "GESWAL" },
+    { codigo: 5924, descricao: "GESWAM" },
+    { codigo: 5915, descricao: "GESWB" },
+    { codigo: 27482, descricao: "GT-100 EQ ROADMAN" },
+    { codigo: 25015, descricao: "HASTE CROMADA DE TREMULO STANDARD P/ GUITARRA" },
+    { codigo: 25777, descricao: "JACK MONO DE SAIDA PARA GUITARRA/BAIXO ELETRICO" },
+    { codigo: 25722, descricao: "JACK P/ BAIXO GB-200A/205A" },
+    { codigo: 27628, descricao: "JACK PRATA GAE09" },
+    { codigo: 27548, descricao: "KIT ACESSÓRIOS P/ GUITARRA / BAIXO" },
+    { codigo: 27603, descricao: "KIT CIRCUITO GUITARRA GAE02 PLUS" },
+    { codigo: 27602, descricao: "KIT CIRCUITO GUITARRA GAE06 DLX" },
+    { codigo: 27497, descricao: "KIT EQUALIZADOR GN-2T (CS-34)" },
+    { codigo: 27625, descricao: "KIT PESTANA/RASTILHO ROADMAN AÇO" },
+    { codigo: 27626, descricao: "KIT PESTANA/RASTILHO ROADMAN NYLON" },
+    { codigo: 27624, descricao: "KIT ROLDANAS ROADMAN (COM FELTRO)" },
+    { codigo: 27627, descricao: "KNOB CREME CHAVE SELETORA GAE09" },
+    { codigo: 27629, descricao: "KNOB DE CIRCUITO PRETO GAE09" },
+    { codigo: 27640, descricao: "KNOB DOURADO GP-100 BK/GD" },
+    { codigo: 27494, descricao: "KNOB PARA CHAVE SELETORA GAE" },
+    { codigo: 27639, descricao: "KNOB PRETO GP-100/GP-102" },
+    { codigo: 27634, descricao: "KNOBS METÁLICOS PRETOS GUITARRA G-101 NEOFX" },
+    { codigo: 27635, descricao: "KNOBS METÁLICOS PRETOS P/ EFEITOS GUITARRA G-101 NEOFX" },
+    { codigo: 22368, descricao: "LAMPADA PILOTO AZUL BLUE LAMP (LED2) P/ CLASSIC T" },
+    { codigo: 27606, descricao: "PESTANA GAF DLX 6 CORDAS COR PRETA" },
+    { codigo: 25755, descricao: "PESTANA OSSO TRABALHADA P/ CAVACO 05X11X35MM" },
+    { codigo: 25070, descricao: "PESTANA OSSO TRABALHADA P/ VIOLA 05X11X53MM" },
+    { codigo: 1635, descricao: "PESTANA OSSO TRABALHADA P/ VIOLAO 05X11X53MM" },
+    { codigo: 23084, descricao: "PESTANA PLASTICA BK BAIXO 4 CORDAS" },
+    { codigo: 23085, descricao: "PESTANA PLASTICA BK BAIXO 5 CORDAS" },
+    { codigo: 25772, descricao: "PESTANA PLÁSTICA PARA GUITARRA" },
+    { codigo: 27608, descricao: "PESTANA VIOLÃO DELUXE 12 CORDAS COR MARFIM" },
+    { codigo: 27607, descricao: "PESTANA VIOLÃO DELUXE SEIS CORDAS COR MARFIM" },
+    { codigo: 2253, descricao: "PINO PARA CAVALETE" },
+    { codigo: 27615, descricao: "PLACA CIRCUITO TRASEIRA COR PRETA GAE09 PLUS" },
+    { codigo: 25769, descricao: "PLACA CROMADA DE FIXAÇÃO BRAÇO GUITARRA/BAIXO (NECK PLATE)" },
+    { codigo: 27616, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) GAE09 PLUS" },
+    { codigo: 27620, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) ROADMAN" },
+    { codigo: 27612, descricao: "PLACA DE CHAVE SELETORA PRETA GAE09 PLUS" },
+    { codigo: 27613, descricao: "PLACA DE CHAVE SELETORA TRASEIRA PRETA GAE09 PLUS" },
+    { codigo: 21831, descricao: "PLACA G65" },
+    { codigo: 27549, descricao: "PONTE TREMOLO G-100 / G-101 / G-102" },
+    { codigo: 27631, descricao: "PONTE TUNE-O-MATIC LES PAUL GAE09" },
+    { codigo: 27426, descricao: "PORTA BATERIA GN-3T / GV-3T / MT-2 / MT-3" },
+    { codigo: 27633, descricao: "PORTA BATERIA GUITARRA G-101 NEOFX" },
+    { codigo: 24027, descricao: "PREAMP 2BAND EQ P/ BAIXO ATIVO MOD. XQ-1 (CIRCUITO)" },
+    { codigo: 24757, descricao: "PRE-AMPLIFICADOR JACK (VIOLA PONTEIO)" },
+    { codigo: 25721, descricao: "PRÉ-AMPLIFICADOR XQ-1 P/ BAIXO GB-200A/205A" },
+    { codigo: 13537, descricao: "RASTILHO" },
+    { codigo: 25757, descricao: "RASTILHO OSSO TRABALHADO P/ CAVACO" },
+    { codigo: 25756, descricao: "RASTILHO OSSO TRABALHADO P/ VIOLAO" },
+    { codigo: 24638, descricao: "RASTILHO PLASTICO PARA VIOLÃO/SIMILARES" },
+    { codigo: 26061, descricao: "RASTILHO TRABALHADO VIOLA" },
+    { codigo: 27610, descricao: "RASTILHO VIOLÃO DELUXE 6 E 12 CORDAS COR MARFIM" },
+    { codigo: 27609, descricao: "RASTILHO VIOLÃO DELUXE GAF 6 CORDAS COR PRETA" },
+    { codigo: 16910, descricao: "SSCGG" },
+    { codigo: 16913, descricao: "SSCVAM" },
+    { codigo: 27598, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GAE02 PLUS" },
+    { codigo: 27597, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GAE09 DLX" },
+    { codigo: 27550, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GB-200 (JOGO)" },
+    { codigo: 27600, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GB-200/GB-205 (UNIDADE)" },
+    { codigo: 27601, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GB-205 (JOGO)" },
+    { codigo: 24285, descricao: "TARRAXA BLINDADA CROMADA DJ333C-M9 (3+3) P/ VIOLAO (DG1/FK1 /FK2/FK4 / FK5)" },
+    { codigo: 27596, descricao: "TARRAXA BLINDADA CROMADA GAE09 PLUS" },
+    { codigo: 27595, descricao: "TARRAXA BLINDADA DOURADA GAE06 DLX / GAE09 DLX BK" },
+    { codigo: 23456, descricao: "TARRAXA BLINDADA DOURADA P/ BANDOLIM BS1" },
+    { codigo: 24286, descricao: "TARRAXA CRAVIOLA / STAGE AÇO" },
+    { codigo: 25770, descricao: "TARRAXA CROMADA GUITARRA (G-100)" },
+    { codigo: 27551, descricao: "TARRAXA CROMADA OPEN GEAR COM LOGO GB-100 (JOGO)" },
+    { codigo: 27599, descricao: "TARRAXA CROMADA OPEN GEAR COM LOGO GB-100 (UNIDADE)" },
+    { codigo: 24025, descricao: "TARRAXA CROMADA P/ GUITARRA G-100" },
+    { codigo: 24493, descricao: "TARRAXA CROMADA P/ VIOLÃO AÇO GSF-1D" },
+    { codigo: 24634, descricao: "TARRAXA CROMADA PARA VIOLÃO GSF-3" },
+    { codigo: 27432, descricao: "TARRAXA CROMADA ROADMAN AÇO (GRMS)" },
+    { codigo: 11123, descricao: "TARRAXA CROMADA VIOLAO PINO FINO (S-14 / GSLX100)" },
+    { codigo: 23423, descricao: "TARRAXA CS1 (3+3)" },
+    { codigo: 27096, descricao: "TARRAXA CS1 (DEVAL / SEM LIRA)" },
+    { codigo: 24287, descricao: "TARRAXA FK3" },
+    { codigo: 27574, descricao: "TARRAXA GAC DLX (CROMADA)" },
+    { codigo: 27573, descricao: "TARRAXA GAF PLUS BRW (PRETA + DOURADA)" },
+    { codigo: 27572, descricao: "TARRAXA GAF PLUS DB (CROMADA + DOURADA) OPEN GEAR" },
+    { codigo: 24494, descricao: "TARRAXA GD-1/GDC-1" },
+    { codigo: 24633, descricao: "TARRAXA GF-1D" },
+    { codigo: 24635, descricao: "TARRAXA GNF-3" },
+    { codigo: 24024, descricao: "TARRAXA GNF-3 CEQ (NS/WS)" },
+    { codigo: 24644, descricao: "TARRAXA GUK-21 / 23" },
+    { codigo: 24021, descricao: "TARRAXA N6 (C/ LIRA)" },
+    { codigo: 24020, descricao: "TARRAXA N6 (S/ LIRA)" },
+    { codigo: 4426, descricao: "TARRAXA NC3" },
+    { codigo: 24022, descricao: "TARRAXA NIQUELADA P/ VIOLAO N-14 (N/BK)" },
+    { codigo: 24023, descricao: "TARRAXA NIQUELADA P/ VIOLAO NF-14 (N/BK)" },
+    { codigo: 24631, descricao: "TARRAXA NIQUELADA PARA CAVACO CS-14" },
+    { codigo: 24632, descricao: "TARRAXA NIQUELADA PARA VIOLÃO GNF-1D" },
+    { codigo: 11124, descricao: "TARRAXA NIQUELADA VIOLA PONTEIO (VSP1)" },
+    { codigo: 23424, descricao: "TARRAXA NW1 / NLS /NFL /NLS /NWT1 / STN / NFLE / NC1 / NCP1" },
+    { codigo: 24179, descricao: "TARRAXA P/ VIOLAO GN-15 (N/BK)" },
+    { codigo: 24180, descricao: "TARRAXA P/ VIOLAO GS-15 (N/BK)" },
+    { codigo: 27594, descricao: "TARRAXA PINO FINO INDIVIDUAL POR CORDA CAVACO CS-34" },
+    { codigo: 27098, descricao: "Tarraxa PLUS (GGC) - BLINDADA CROMADA" },
+    { codigo: 24182, descricao: "TARRAXA SF-14 (N/BK)" },
+    { codigo: 24602, descricao: "TARRAXA TROVADOR" },
+    { codigo: 24492, descricao: "TARRAXA UKULELE UKS-21/UKS-23" },
+    { codigo: 11529, descricao: "TARRAXA VIOLAO DOURADA 7 CORDAS (NW1/7 | M4/7)" },
+    { codigo: 22976, descricao: "TARRAXA VS-14 1 FURO" },
+    { codigo: 23422, descricao: "TARRAXA VS1H / VS4H / VS8H" },
+    { codigo: 26052, descricao: "TARRAXA VS9H BLINDADA CROMADA" },
+    { codigo: 27157, descricao: "TARRAXAS BLINDADAS CROMADAS DELUXE 12 CORDAS D12/J12" },
+    { codigo: 27592, descricao: "TARRAXAS BLINDADAS CROMADAS GDH" },
+    { codigo: 27158, descricao: "TARRAXAS BLINDADAS CROMADAS PRETAS DELUXE GAF" },
+    { codigo: 27156, descricao: "TARRAXAS BLINDADAS CROMADAS VIOLÕES DELUXE DRC/DRF/DAC" },
+    { codigo: 27593, descricao: "TARRAXAS BLINDADAS PRETAS GDH" },
+    { codigo: 27590, descricao: "TARRAXAS CROMADAS PINO GROSSO GNY PLUS" },
+    { codigo: 27591, descricao: "TARRAXAS NIQUELADAS PINO GROSSO NYLON N-17" },
+    { codigo: 27159, descricao: "TARRAXAS PINO GROSSO DOURADAS VIOLÃO DELUXE GNY" },
+    { codigo: 27160, descricao: "TARRAXAS PINO GROSSO DOURADAS VIOLÕES ROADMAN (GRMN)" },
+    { codigo: 27101, descricao: "TARRAXAS PLUS AÇO (GAD / GDR / GSS) - OPEN GEAR" },
+    { codigo: 20277, descricao: "TOPS-4V - CONJUNTO DE PRÉ-EQUALIZADOR DE SOM E ACESSÓRIOS" },
+    { codigo: 20278, descricao: "TOPS-5V - CONJUNTO DE PRÉ-EQUALIZADOR DE SOM E ACESSÓRIOS" },
+    { codigo: 21949, descricao: "TRANSFORMADOR DE POTENCIA (CLASSIC T)" },
+    { codigo: 27446, descricao: "TRAVA CORPO/HASTE ROADMAN (FÊMEA)" },
+    { codigo: 27445, descricao: "TRAVA CORPO/HASTE ROADMAN (MACHO)" },
+    { codigo: 27644, descricao: "KNOB CROMADO GUITARRA GAE02 PLUS" },
+    { codigo: 27645, descricao: "JACK CROMADO GUITARRA GAE02 PLUS" },
+    { codigo: 27646, descricao: "PONTE CROMADA GUITARRA GAE02 PLUS" },
+    { codigo: 27647, descricao: "KNOB CHAVE SELETORA GUITARRA GAE02 PLUS" },
+    { codigo: 27648, descricao: "CAPTADOR LIPSTICK GUITARRA GAE02 PLUS" },
+    { codigo: 27649, descricao: "CONJUNTO PONTE CROMADA CAPTADOR SINGLE COIL GAE02 PLUS" },
+    { codigo: 27650, descricao: "PLACA TRASEIRA CIRCUITO GUITARRA G-100" },
+    { codigo: 27667, descricao: "PONTE CROMADA STANDARD GUITARRAS G-100/G-101/G-102" },
+    { codigo: 27668, descricao: "PONTE CROMADA CONTRABAIXO GP-100" },
+    { codigo: 27669, descricao: "PONTE CROMADA CONTRABAIXO GB-200A" },
+    { codigo: 27670, descricao: "PONTE CROMADA CONTRABAIXO GB-100" },
+    { codigo: 27671, descricao: "PONTE DOURADA GUITARRA GAE09 DLX" },
+    { codigo: 27672, descricao: "CORDAL DOURADO GUITARRA GAE09 DLX" },
+    { codigo: 27673, descricao: "PONTE DOURADA GUITARRA GAE06 DLX" },
+    { codigo: 27674, descricao: "PONTE CROMADA GUITARRA GAE09 DLX" },
+    { codigo: 27675, descricao: "KNOB CROMADO CONTRABAIXOS GB-200A/GB-205A" },
+    { codigo: 27676, descricao: "STRAP LOCK DOURADO GUITARRA GAE09 DLX BK" },
+    { codigo: 27677, descricao: "CAPTADOR SINGLE COIL BRANCO BRAÇO GUITARRA STANDARD" },
+    { codigo: 27678, descricao: "CAPTADOR HUMBUCKER BRANCO BRAÇO GUITARRA STANDARD" },
+    { codigo: 27679, descricao: "CAPTADOR SINGLE COIL PRETO BRAÇO GUITARRA STANDARD" },
+    { codigo: 27681, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) GAE09 DLX" },
+    { codigo: 27682, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) GAE06 DLX" },
+    { codigo: 27683, descricao: "KNOB PLÁSTICO PRETO GB-100 (MENOR)" },
+    { codigo: 27684, descricao: "KNOB PLÁSTICO PRETO GB-100 (MAIOR)" },
+    { codigo: 27685, descricao: "KNOB PLÁSTICO MARROM GAE09 DLX" },
+    { codigo: 27686, descricao: "KNOB PLÁSTICO MARROM GAE09 DLX BK" },
+    { codigo: 27687, descricao: "PLACA CHAVE SELETORA CREME GAE09 DLX" },
+    { codigo: 27688, descricao: "PLACA CHAVE SELETORA TRASEIRA PRETA GAE09 DLX BK" },
+    { codigo: 27689, descricao: "CLIP DE BATERIA GB-200A E GB-205A" },
+    { codigo: 27690, descricao: "CORDAL CROMADO TUNE-O-MATIC GUITARRA GAE09 DLX" },
+    { codigo: 27691, descricao: "ROLDANA CROMADA GUITARRA GAE09 DLX" },
     { codigo: 27692, descricao: "JACK DOURADO GUITARRA GAE09 DLX BK" },
     { codigo: 27693, descricao: "PLACA DE CIRCUITO CROMADA BAIXO GB-100" },
     { codigo: 27694, descricao: "PLACA CHAVE SELETORA TRASEIRA CREME GAE09 DLX" },
@@ -179,6 +433,15 @@
     { codigo: 27696, descricao: "PLACA TRASEIRA DE CIRCUITO CREME GUITARRA GAE09 DLX" },
     { codigo: 27697, descricao: "ESCUDO CREME GUITARRA GAE09 DLX" },
   ];
+
+  // ---- Fonte das fotos ----
+  // "local": busca em img/<codigo>.<extensao> (pasta deste repositório)
+  // "asp":   busca no servidor interno do TI, via ASP_URL_TEMPLATE
+  const IMG_SOURCE = "local";
+
+  // Preencher quando o TI confirmar a URL final. Use {codigo} onde o
+  // código do item deve entrar. Ex: "http://10.0.0.5/fotos.asp?codigo={codigo}"
+  const ASP_URL_TEMPLATE = "http://SEU-SERVIDOR-AQUI/caminho.asp?codigo={codigo}";
 
   const IMG_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
@@ -209,10 +472,13 @@
     }
   }
 
-  function tryLoadImage(codigo, extIndex = 0) {
-    overlayImgwrap.innerHTML = "";
+  function showNoImage() {
+    overlayImgwrap.innerHTML = `<div id="overlay-noimg">Foto ainda não cadastrada para este item.</div>`;
+  }
+
+  function tryLoadLocalImage(codigo, extIndex = 0) {
     if (extIndex >= IMG_EXTENSIONS.length) {
-      overlayImgwrap.innerHTML = `<div id="overlay-noimg">Foto ainda não cadastrada para este item.</div>`;
+      showNoImage();
       return;
     }
     const img = new Image();
@@ -222,7 +488,27 @@
       overlayImgwrap.innerHTML = "";
       overlayImgwrap.appendChild(img);
     };
-    img.onerror = () => tryLoadImage(codigo, extIndex + 1);
+    img.onerror = () => tryLoadLocalImage(codigo, extIndex + 1);
+  }
+
+  function tryLoadImage(codigo) {
+    overlayImgwrap.innerHTML = "";
+
+    if (IMG_SOURCE === "asp") {
+      const img = new Image();
+      img.src = ASP_URL_TEMPLATE.replace("{codigo}", codigo);
+      img.alt = "Foto do item " + codigo;
+      img.onload = () => {
+        overlayImgwrap.innerHTML = "";
+        overlayImgwrap.appendChild(img);
+      };
+      // Se o ASP falhar (rede fora da empresa, servidor fora do ar,
+      // bloqueio por conteúdo misto http/https), cai para a pasta local.
+      img.onerror = () => tryLoadLocalImage(codigo);
+      return;
+    }
+
+    tryLoadLocalImage(codigo);
   }
 
   function openItem(item) {
