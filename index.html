@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relação de Itens</title>
+<style>
+  :root {
+    --bg: #f4f5f7;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--card-bg);
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+  }
+  header h1 {
+    margin: 0 0 12px;
+    font-size: 20px;
+  }
+  #search {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+  }
+  #search:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+  }
+  #list {
+    padding: 8px 12px 24px;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .item:active {
+    background: #eef2ff;
+  }
+  .item-code {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .item-desc {
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .item-thumb-flag {
+    margin-left: auto;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  #empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 20px;
+    display: none;
+  }
+  /* Overlay */
+  #overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+  }
+  #overlay.open {
+    display: flex;
+  }
+  #overlay-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    color: #fff;
+  }
+  #close-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  #overlay-info {
+    color: #fff;
+    min-width: 0;
+  }
+  #overlay-code {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 600;
+  }
+  #overlay-desc {
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  #overlay-imgwrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: hidden;
+  }
+  #overlay-imgwrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  #overlay-noimg {
+    color: #9ca3af;
+    text-align: center;
+    padding: 24px;
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Relação de Itens</h1>
+  <input id="search" type="text" placeholder="Buscar por código ou descrição..." autocomplete="off">
+</header>
+
+<div id="list"></div>
+<div id="empty">Nenhum item encontrado.</div>
+
+<div id="overlay">
+  <div id="overlay-header">
+    <button id="close-btn" aria-label="Fechar">&times;</button>
+    <div id="overlay-info">
+      <div id="overlay-code"></div>
+      <div id="overlay-desc"></div>
+    </div>
+  </div>
+  <div id="overlay-imgwrap"></div>
+</div>
+
+<script>
+  // ---- Dados dos itens (teste inicial com 6 itens) ----
+  // Para adicionar itens: inclua { codigo, descricao } aqui e a foto
+  // correspondente em img/<codigo>.png (ou .jpg)
+  const ITEMS = [
+    { codigo: 27692, descricao: "JACK DOURADO GUITARRA GAE09 DLX BK" },
+    { codigo: 27693, descricao: "PLACA DE CIRCUITO CROMADA BAIXO GB-100" },
+    { codigo: 27694, descricao: "PLACA CHAVE SELETORA TRASEIRA CREME GAE09 DLX" },
+    { codigo: 27695, descricao: "PLACA TRASEIRA DE CIRCUITO PRETA GUITARRA GAE09 DLX BK" },
+    { codigo: 27696, descricao: "PLACA TRASEIRA DE CIRCUITO CREME GUITARRA GAE09 DLX" },
+    { codigo: 27697, descricao: "ESCUDO CREME GUITARRA GAE09 DLX" },
+  ];
+
+  const IMG_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
+
+  const listEl = document.getElementById("list");
+  const emptyEl = document.getElementById("empty");
+  const searchEl = document.getElementById("search");
+  const overlay = document.getElementById("overlay");
+  const overlayCode = document.getElementById("overlay-code");
+  const overlayDesc = document.getElementById("overlay-desc");
+  const overlayImgwrap = document.getElementById("overlay-imgwrap");
+  const closeBtn = document.getElementById("close-btn");
+
+  function render(items) {
+    listEl.innerHTML = "";
+    emptyEl.style.display = items.length ? "none" : "block";
+    for (const item of items) {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <div>
+          <div class="item-code">${item.codigo}</div>
+          <div class="item-desc">${item.descricao}</div>
+        </div>
+        <div class="item-thumb-flag">📷</div>
+      `;
+      div.addEventListener("click", () => openItem(item));
+      listEl.appendChild(div);
+    }
+  }
+
+  function tryLoadImage(codigo, extIndex = 0) {
+    overlayImgwrap.innerHTML = "";
+    if (extIndex >= IMG_EXTENSIONS.length) {
+      overlayImgwrap.innerHTML = `<div id="overlay-noimg">Foto ainda não cadastrada para este item.</div>`;
+      return;
+    }
+    const img = new Image();
+    img.src = `img/${codigo}.${IMG_EXTENSIONS[extIndex]}`;
+    img.alt = "Foto do item " + codigo;
+    img.onload = () => {
+      overlayImgwrap.innerHTML = "";
+      overlayImgwrap.appendChild(img);
+    };
+    img.onerror = () => tryLoadImage(codigo, extIndex + 1);
+  }
+
+  function openItem(item) {
+    overlayCode.textContent = "Código " + item.codigo;
+    overlayDesc.textContent = item.descricao;
+    tryLoadImage(item.codigo);
+    overlay.classList.add("open");
+  }
+
+  closeBtn.addEventListener("click", () => overlay.classList.remove("open"));
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay.classList.remove("open");
+  });
+
+  searchEl.addEventListener("input", () => {
+    const q = searchEl.value.trim().toLowerCase();
+    const filtered = !q
+      ? ITEMS
+      : ITEMS.filter(
+          (i) =>
+            String(i.codigo).includes(q) ||
+            i.descricao.toLowerCase().includes(q)
+        );
+    render(filtered);
+  });
+
+  render(ITEMS);
+</script>
+
+</body>
+</html>
