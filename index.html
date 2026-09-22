@@ -6,12 +6,14 @@
 <title>Relação de Itens</title>
 <style>
   :root {
-    --bg: #f4f5f7;
+    --bg: #f2f2f2;
     --card-bg: #ffffff;
+    --stripe: #d9d9d9;
     --text: #1a1a1a;
-    --muted: #6b7280;
-    --accent: #2563eb;
-    --border: #e5e7eb;
+    --muted: #1f4e79;
+    --accent: #538135;
+    --accent-dark: #3c611f;
+    --border: #c0c0c0;
   }
   * { box-sizing: border-box; }
   body {
@@ -23,29 +25,35 @@
   header {
     position: sticky;
     top: 0;
-    background: var(--card-bg);
-    padding: 16px;
-    border-bottom: 1px solid var(--border);
+    background: var(--accent);
+    padding: 18px 16px;
     z-index: 10;
+    box-shadow: 0 2px 8px rgba(201, 111, 38, 0.25);
   }
   header h1 {
     margin: 0 0 12px;
     font-size: 20px;
+    color: #ffffff;
+    letter-spacing: 0.2px;
   }
   #search {
     width: 100%;
     padding: 14px 16px;
     font-size: 16px;
-    border: 1px solid var(--border);
+    border: none;
     border-radius: 10px;
-    background: var(--bg);
+    background: #ffffff;
+    color: var(--text);
+  }
+  #search::placeholder {
+    color: #b99a7c;
   }
   #search:focus {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent-dark);
     outline-offset: -1px;
   }
   #list {
-    padding: 8px 12px 24px;
+    padding: 10px 12px 24px;
   }
   .item {
     display: flex;
@@ -53,28 +61,35 @@
     gap: 12px;
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 12px 14px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
+  .item:nth-child(even) {
+    background: var(--stripe);
+  }
   .item:active {
-    background: #eef2ff;
+    background: #c3dcae;
   }
   .item-code {
     font-size: 12px;
     color: var(--muted);
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.3px;
   }
   .item-desc {
     font-size: 15px;
     line-height: 1.35;
+    color: var(--text);
+    font-weight: 600;
   }
   .item-thumb-flag {
     margin-left: auto;
     font-size: 18px;
     flex-shrink: 0;
+    opacity: 0.8;
   }
   #empty {
     text-align: center;
@@ -102,7 +117,7 @@
     color: #fff;
   }
   #close-btn {
-    background: rgba(255,255,255,0.15);
+    background: var(--accent);
     border: none;
     color: #fff;
     font-size: 22px;
@@ -117,8 +132,8 @@
   }
   #overlay-code {
     font-size: 12px;
-    color: #9ca3af;
-    font-weight: 600;
+    color: var(--accent);
+    font-weight: 700;
   }
   #overlay-desc {
     font-size: 15px;
@@ -173,10 +188,11 @@
   // foto correspondente em img/<codigo>.png (ou .jpg/.jpeg/.webp)
   //
   // ATENÇÃO: por enquanto esta lista mostra só os itens que JÁ têm foto
-  // cadastrada (136 de 275). Conforme mais fotos forem adicionadas em
+  // cadastrada (166 de 275). Conforme mais fotos forem adicionadas em
   // img/, essa lista precisa ser regerada para incluir os novos itens.
 
   const ITEMS = [
+    { codigo: 27486, descricao: "ARCO P/ ROADMAN" },
     { codigo: 13880, descricao: "BATERIA 9V" },
     { codigo: 27431, descricao: "BATERIA DE LÍTIO 18650 3.7V 2000 MAH" },
     { codigo: 24249, descricao: "BATTERY COVER (TIPO GAVETA) P/ VIOLOES - GN-3T" },
@@ -197,6 +213,7 @@
     { codigo: 27664, descricao: "CAPTADOR PONTE BAIXO GB-100" },
     { codigo: 27660, descricao: "CAPTADOR PONTE COR CREME GUITARRA GAE09 DLX" },
     { codigo: 27651, descricao: "CAPTADOR PONTE GUITARRA GAE06 DLX" },
+    { codigo: 27677, descricao: "CAPTADOR SINGLE COIL BRANCO BRAÇO GUITARRA STANDARD" },
     { codigo: 27638, descricao: "CAPTADOR SINGLE COIL BRAÇO GUITARRA G-101 NEOFX" },
     { codigo: 27637, descricao: "CAPTADOR SINGLE COIL MEIO GUITARRA G-101 NEOFX" },
     { codigo: 27679, descricao: "CAPTADOR SINGLE COIL PRETO BRAÇO GUITARRA STANDARD" },
@@ -213,14 +230,24 @@
     { codigo: 27658, descricao: "CORDAL DOURADO GAE06 DLX" },
     { codigo: 27672, descricao: "CORDAL DOURADO GUITARRA GAE09 DLX" },
     { codigo: 27630, descricao: "CORDAL TUNE-O-MATIC LES PAUL GAE09" },
+    { codigo: 26633, descricao: "EQUALIZADOR FISHMAN CLÁSICA II" },
+    { codigo: 26071, descricao: "EQUALIZADOR FISHMAN PRESYS II" },
+    { codigo: 25704, descricao: "EQUALIZADOR G-01" },
+    { codigo: 25705, descricao: "EQUALIZADOR G-02" },
     { codigo: 27496, descricao: "EQUALIZADOR GN-2T (CS-34)" },
+    { codigo: 24484, descricao: "EQUALIZADOR GN-3T" },
     { codigo: 24026, descricao: "EQUALIZADOR GS-3T" },
+    { codigo: 23340, descricao: "EQUALIZADOR GV-3T (VS-14)" },
+    { codigo: 23581, descricao: "EQUALIZADOR MT-2" },
+    { codigo: 22336, descricao: "EQUALIZADOR MT-3" },
+    { codigo: 24363, descricao: "EQUALIZADOR UK-T3 (STAGE)" },
     { codigo: 27697, descricao: "ESCUDO CREME GUITARRA GAE09 DLX" },
     { codigo: 27654, descricao: "ESCUDO DOURADO GUITARRA GAE06 DLX BF" },
     { codigo: 27614, descricao: "ESCUDO GAE09 PLUS" },
     { codigo: 27656, descricao: "ESCUDO PRETO GUITARRA GAE06 DLX RD" },
     { codigo: 27655, descricao: "ESCUDO TORTOISE GUITARRA GAE06 DLX VS" },
     { codigo: 27632, descricao: "ESCUDO TRANSPARENTE GUITARRA G-101 NEOFX" },
+    { codigo: 27482, descricao: "GT-100 EQ ROADMAN" },
     { codigo: 27645, descricao: "JACK CROMADO GUITARRA GAE02 PLUS" },
     { codigo: 27692, descricao: "JACK DOURADO GUITARRA GAE09 DLX BK" },
     { codigo: 27628, descricao: "JACK PRATA GAE09" },
@@ -238,6 +265,7 @@
     { codigo: 27652, descricao: "KNOB DE CIRCUITO GUITARRA GAE06 DLX BF" },
     { codigo: 27629, descricao: "KNOB DE CIRCUITO PRETO GAE09" },
     { codigo: 27640, descricao: "KNOB DOURADO GP-100 BK/GD" },
+    { codigo: 27494, descricao: "KNOB PARA CHAVE SELETORA GAE" },
     { codigo: 27685, descricao: "KNOB PLÁSTICO MARROM GAE09 DLX" },
     { codigo: 27686, descricao: "KNOB PLÁSTICO MARROM GAE09 DLX BK" },
     { codigo: 27684, descricao: "KNOB PLÁSTICO PRETO GB-100 (MAIOR)" },
@@ -246,11 +274,14 @@
     { codigo: 27634, descricao: "KNOBS METÁLICOS PRETOS GUITARRA G-101 NEOFX" },
     { codigo: 27635, descricao: "KNOBS METÁLICOS PRETOS P/ EFEITOS GUITARRA G-101 NEOFX" },
     { codigo: 27606, descricao: "PESTANA GAF DLX 6 CORDAS COR PRETA" },
+    { codigo: 27608, descricao: "PESTANA VIOLÃO DELUXE 12 CORDAS COR MARFIM" },
+    { codigo: 27607, descricao: "PESTANA VIOLÃO DELUXE SEIS CORDAS COR MARFIM" },
     { codigo: 27687, descricao: "PLACA CHAVE SELETORA CREME GAE09 DLX" },
     { codigo: 27694, descricao: "PLACA CHAVE SELETORA TRASEIRA CREME GAE09 DLX" },
     { codigo: 27688, descricao: "PLACA CHAVE SELETORA TRASEIRA PRETA GAE09 DLX BK" },
     { codigo: 27615, descricao: "PLACA CIRCUITO TRASEIRA COR PRETA GAE09 PLUS" },
     { codigo: 27682, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) GAE06 DLX" },
+    { codigo: 27681, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) GAE09 DLX" },
     { codigo: 27616, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) GAE09 PLUS" },
     { codigo: 27620, descricao: "PLACA DE ACESSO AO TENSOR (CAPELA) ROADMAN" },
     { codigo: 27612, descricao: "PLACA DE CHAVE SELETORA PRETA GAE09 PLUS" },
@@ -268,16 +299,23 @@
     { codigo: 27673, descricao: "PONTE DOURADA GUITARRA GAE06 DLX" },
     { codigo: 27671, descricao: "PONTE DOURADA GUITARRA GAE09 DLX" },
     { codigo: 27549, descricao: "PONTE TREMOLO G-100 / G-101 / G-102" },
+    { codigo: 27631, descricao: "PONTE TUNE-O-MATIC LES PAUL GAE09" },
+    { codigo: 27426, descricao: "PORTA BATERIA GN-3T / GV-3T / MT-2 / MT-3" },
     { codigo: 27633, descricao: "PORTA BATERIA GUITARRA G-101 NEOFX" },
+    { codigo: 27610, descricao: "RASTILHO VIOLÃO DELUXE 6 E 12 CORDAS COR MARFIM" },
+    { codigo: 27609, descricao: "RASTILHO VIOLÃO DELUXE GAF 6 CORDAS COR PRETA" },
     { codigo: 27653, descricao: "RETENTOR DE CORDAS (GAIVOTA) PARA GUITARRA STANDARD" },
     { codigo: 27691, descricao: "ROLDANA CROMADA GUITARRA GAE09 DLX" },
     { codigo: 27659, descricao: "ROLDANA DOURADA GUITARRA GAE06 DLX" },
     { codigo: 27676, descricao: "STRAP LOCK DOURADO GUITARRA GAE09 DLX BK" },
+    { codigo: 27666, descricao: "SUPORTE CROMADO DE ESCUDO GUITARRA GAE09 DLX" },
+    { codigo: 27657, descricao: "SUPORTE DOURADO DE ESCUDO GUITARRA GAE06 DLX BF" },
     { codigo: 27598, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GAE02 PLUS" },
     { codigo: 27597, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GAE09 DLX" },
     { codigo: 27550, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GB-200 (JOGO)" },
     { codigo: 27600, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GB-200/GB-205 (UNIDADE)" },
     { codigo: 27601, descricao: "TARRAXA BLINDADA CROMADA COM LOGO GB-205 (JOGO)" },
+    { codigo: 24285, descricao: "TARRAXA BLINDADA CROMADA DJ333C-M9 (3+3) P/ VIOLAO (DG1/FK1 /FK2/FK4 / FK5)" },
     { codigo: 27596, descricao: "TARRAXA BLINDADA CROMADA GAE09 PLUS" },
     { codigo: 27595, descricao: "TARRAXA BLINDADA DOURADA GAE06 DLX / GAE09 DLX BK" },
     { codigo: 25770, descricao: "TARRAXA CROMADA GUITARRA (G-100)" },
@@ -286,6 +324,9 @@
     { codigo: 24493, descricao: "TARRAXA CROMADA P/ VIOLÃO AÇO GSF-1D" },
     { codigo: 24634, descricao: "TARRAXA CROMADA PARA VIOLÃO GSF-3" },
     { codigo: 27432, descricao: "TARRAXA CROMADA ROADMAN AÇO (GRMS)" },
+    { codigo: 11123, descricao: "TARRAXA CROMADA VIOLAO PINO FINO (S-14 / GSLX100)" },
+    { codigo: 23423, descricao: "TARRAXA CS1 (3+3)" },
+    { codigo: 24287, descricao: "TARRAXA FK3" },
     { codigo: 27574, descricao: "TARRAXA GAC DLX (CROMADA)" },
     { codigo: 27573, descricao: "TARRAXA GAF PLUS BRW (PRETA + DOURADA)" },
     { codigo: 27572, descricao: "TARRAXA GAF PLUS DB (CROMADA + DOURADA) OPEN GEAR" },
@@ -293,16 +334,20 @@
     { codigo: 24633, descricao: "TARRAXA GF-1D" },
     { codigo: 24635, descricao: "TARRAXA GNF-3" },
     { codigo: 24020, descricao: "TARRAXA N6 (S/ LIRA)" },
+    { codigo: 4426, descricao: "TARRAXA NC3" },
     { codigo: 24022, descricao: "TARRAXA NIQUELADA P/ VIOLAO N-14 (N/BK)" },
     { codigo: 24023, descricao: "TARRAXA NIQUELADA P/ VIOLAO NF-14 (N/BK)" },
     { codigo: 24631, descricao: "TARRAXA NIQUELADA PARA CAVACO CS-14" },
     { codigo: 24632, descricao: "TARRAXA NIQUELADA PARA VIOLÃO GNF-1D" },
+    { codigo: 11124, descricao: "TARRAXA NIQUELADA VIOLA PONTEIO (VSP1)" },
+    { codigo: 23424, descricao: "TARRAXA NW1 / NLS /NFL /NLS /NWT1 / STN / NFLE / NC1 / NCP1" },
     { codigo: 24179, descricao: "TARRAXA P/ VIOLAO GN-15 (N/BK)" },
     { codigo: 24180, descricao: "TARRAXA P/ VIOLAO GS-15 (N/BK)" },
     { codigo: 27594, descricao: "TARRAXA PINO FINO INDIVIDUAL POR CORDA CAVACO CS-34" },
     { codigo: 24182, descricao: "TARRAXA SF-14 (N/BK)" },
     { codigo: 24492, descricao: "TARRAXA UKULELE UKS-21/UKS-23" },
     { codigo: 22976, descricao: "TARRAXA VS-14 1 FURO" },
+    { codigo: 26052, descricao: "TARRAXA VS9H BLINDADA CROMADA" },
     { codigo: 27592, descricao: "TARRAXAS BLINDADAS CROMADAS GDH" },
     { codigo: 27158, descricao: "TARRAXAS BLINDADAS CROMADAS PRETAS DELUXE GAF" },
     { codigo: 27156, descricao: "TARRAXAS BLINDADAS CROMADAS VIOLÕES DELUXE DRC/DRF/DAC" },
